@@ -1,5 +1,5 @@
 /**
- * 
+ * Edited by Lindsey Gillaspie 
  */
 package com.flatironschool.javacs;
 
@@ -85,7 +85,18 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public void add(int index, E element) {
-		// TODO: fill this in
+		// TODO2: fill this in
+		//Shift elements
+		if(index == 0)
+		{
+			head = new Node(element, head);	//insert at front
+		}
+		else {
+			Node current = getNode(index-1);
+			Node new_Node = new Node(element, current.next);
+			current.next = new_Node;
+		}
+		size++;
 	}
 
 	@Override
@@ -146,7 +157,19 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: fill this in
+		// TODO1: fill this in
+		int index = 0;
+		Node current = head;
+		while(index < size)
+		{
+			if(equals(target, current.cargo))
+			{
+				return index;
+			}
+			index++;
+			current = current.next;
+		}
+		
 		return -1;
 	}
 
@@ -201,14 +224,48 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean remove(Object obj) {
-		// TODO: fill this in
+		// TODO3: fill this in
+		int index = 0;
+		Node current = head;
+
+		while( index < size)
+		{
+			if(equals(obj, current.cargo))
+			{
+			if(index == 0)
+				{
+					head = head.next;
+					size--;
+					return true;
+				} 
+				else 
+				{
+					Node current2 = getNode(index-1);
+					current2.next = current2.next.next;
+					size--;
+					return true;
+				}
+			}
+			index++;
+			current = current.next;
+		}
 		return false;
 	}
 
 	@Override
 	public E remove(int index) {
-		// TODO: fill this in
-		return null;
+		// TODO4: fill this in
+		E removed = get(index);
+		if(index == 0)
+		{
+			head = head.next;
+		}
+		else {
+			Node current = getNode(index-1);
+			current.next = current.next.next; //delete node
+		}
+		size--;
+		return removed;
 	}
 
 	@Override
